@@ -135,6 +135,7 @@
 		<call target="config-build-${build.config}"/>
 		<call target="config-platform-${build.platform}"/>
 
+		<property name="current.path.lib" value="${path.lib}/Ninject/${build.platform}"/>
 		<property name="current.path.build" value="${path.build}/${build.platform}/${build.config}"/>
 		<property name="current.path.build.lib" value="${path.build}/${build.platform}/${build.config}/lib"/>
 		<property name="current.path.test" value="${path.build}/${build.platform}/tests" />
@@ -149,9 +150,9 @@
 		</copy>
 		
 		<copy todir="${current.path.build.lib}">
-			<fileset basedir="${path.lib}">
-				<include name="*.dll"/>
-				<include name="*.xml"/>
+			<fileset basedir="${current.path.lib}">
+				<include name="**/*.dll"/>
+				<include name="**/*.xml"/>
 			</fileset>
 		</copy>
 		
