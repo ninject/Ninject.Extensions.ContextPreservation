@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.ContextPreservation", "src\Ninject.Extensions.ContextPreservation\Ninject.Extensions.ContextPreservation.csproj", "{3E6FB00B-A221-43C5-99C9-28084348CB14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ninject.Extensions.ContextPreservation.Test", "src\Ninject.Extensions.ContextPreservation.Test\Ninject.Extensions.ContextPreservation.Test.csproj", "{19F47434-A5EF-4C4F-B22B-90FF00B08AE5}"
