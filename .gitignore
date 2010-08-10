@@ -1,7 +1,6 @@
 /build*
-/source/Ninject.Extensions.ContextPreservation.5.0.ReSharper.user
-/source/Ninject.Extensions.ContextPreservation.Test/obj*
-/source/Ninject.Extensions.ContextPreservation/_ReSharper.Ninject.Extensions.ContextPreservation*
-/source/_ReSharper.Ninject.Extensions.ContextPreservation*
-/source/Ninject.Extensions.ContextPreservation/obj*
-/source/Ninject.Extensions.ContextPreservation.suo
+/dist*
+/src/Ninject.Extensions.ContextPreservation.Test/obj*
+/src/Ninject.Extensions.ContextPreservation/obj*
+/_ReSharper.Ninject.Extensions.ContextPreservation*
+*.suo
