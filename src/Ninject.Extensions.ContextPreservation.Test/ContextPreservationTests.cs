@@ -33,7 +33,7 @@ namespace Ninject.Extensions.ContextPreservation
         /// <summary>
         /// The kernel used in the tests.
         /// </summary>
-        private IKernel kernel;
+        private readonly IKernel kernel;
 
         /// <summary>
         /// Child interface used in the tests.
@@ -148,6 +148,101 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
+        /// The ContextPreservingGet extension method uses a 
+        /// <see cref="ContextPreservingResolutionRoot"/> to get the requested instance.
+        /// </summary>
+        [Fact]
+        public void ContextPreservingGetExtensionMethodWithoutArguments()
+        {
+            this.kernel.Bind<Parent>().ToSelf();
+            this.kernel.Bind<IChild>().ToMethod(ctx => ctx.ContextPreservingGet<Child>());
+            this.kernel.Bind<Child>().ToSelf().WhenInjectedInto<Parent>();
+
+            var parent = this.kernel.Get<Parent>();
+
+            Assert.NotNull(parent.Child);
+        }
+
+        /// <summary>
+        /// The ContextPreservingGet extension method uses a 
+        /// <see cref="ContextPreservingResolutionRoot"/> to get the requested instance.
+        /// Works also with name.
+        /// </summary>
+        [Fact]
+        public void ContextPreservingGetExtensionMethodWithName()
+        {
+            this.kernel.Bind<Parent>().ToSelf();
+            this.kernel.Bind<IChild>().ToMethod(ctx => ctx.ContextPreservingGet<ChildWithArgument>("1"));
+            this.kernel.Bind<ChildWithArgument>().ToSelf()
+                       .WhenInjectedInto<Parent>().Named("1").WithConstructorArgument("name", "1");
+            this.kernel.Bind<ChildWithArgument>().ToSelf()
+                       .WhenInjectedInto<Parent>().Named("2").WithConstructorArgument("name", "2");
+
+            var parent = this.kernel.Get<Parent>();
+
+            Assert.NotNull(parent.Child);
+            Assert.Equal("1", ((ChildWithArgument)parent.Child).Name);
+        }
+
+        /// <summary>
+        /// The ContextPreservingGet extension method uses a 
+        /// <see cref="ContextPreservingResolutionRoot"/> to get the requested instance.
+        /// Works also with constraint.
+        /// </summary>
+        [Fact]
+        public void ContextPreservingGetExtensionMethodWithConstraint()
+        {
+            this.kernel.Bind<Parent>().ToSelf();
+            this.kernel.Bind<IChild>().ToMethod(ctx => ctx.ContextPreservingGet<ChildWithArgument>(m => m.Has("2")));
+            this.kernel.Bind<ChildWithArgument>().ToSelf()
+                       .WhenInjectedInto<Parent>().WithMetadata("1", null).WithConstructorArgument("name", "1");
+            this.kernel.Bind<ChildWithArgument>().ToSelf()
+                       .WhenInjectedInto<Parent>().WithMetadata("2", null).WithConstructorArgument("name", "2");
+
+            var parent = this.kernel.Get<Parent>();
+
+            Assert.NotNull(parent.Child);
+            Assert.Equal("2", ((ChildWithArgument)parent.Child).Name);
+        }
+
+
+        /// <summary>
+        /// The ContextPreservingGet extension method uses a 
+        /// <see cref="ContextPreservingResolutionRoot"/> to get the requested instance.
+        /// Works also with parameters.
+        /// </summary>
+        [Fact]
+        public void ContextPreservingGetExtensionMethodWithParameters()
+        {
+            this.kernel.Bind<Parent>().ToSelf();
+            this.kernel.Bind<IChild>().ToMethod(
+                ctx => ctx.ContextPreservingGet<ChildWithArgument>(
+                            new ConstructorArgument("name", "3"), 
+                            new PropertyValue("SomeProperty", "4")));
+            this.kernel.Bind<ChildWithArgument>().ToSelf().WhenInjectedInto<Parent>();
+            var parent = this.kernel.Get<Parent>();
+
+            Assert.NotNull(parent.Child);
+            Assert.Equal("3", ((ChildWithArgument)parent.Child).Name);
+            Assert.Equal("4", ((ChildWithArgument)parent.Child).SomeProperty);
+        }
+
+        /// <summary>
+        /// The GetContextPreservingResolutionRoot extension method creates a
+        /// <see cref="ContextPreservingResolutionRoot"/> for the current context instance. 
+        /// </summary>
+        [Fact]
+        public void GetContextPreservingResolutionRootExtensionMethod()
+        {
+            this.kernel.Bind<Parent>().ToSelf();
+            this.kernel.Bind<IChild>().ToMethod(ctx => ctx.GetContextPreservingResolutionRoot().Get<Child>());
+            this.kernel.Bind<Child>().ToSelf().WhenInjectedInto<Parent>();
+            var parent = this.kernel.Get<Parent>();
+
+            Assert.NotNull(parent.Child);
+        }
+
+        /// <summary>
         /// Test parent class.
         /// </summary>
         private class Parent
@@ -249,6 +344,12 @@ namespace Ninject.Extensions.ContextPreservation
             /// </summary>
             /// <value>The name of the child.</value>
             public string Name { get; private set; }
+
+            /// <summary>
+            /// Gets or sets the test property value.
+            /// </summary>
+            /// <value>The test property value.</value>
+            public string SomeProperty { get; set; }
         }
 
         /// <summary>

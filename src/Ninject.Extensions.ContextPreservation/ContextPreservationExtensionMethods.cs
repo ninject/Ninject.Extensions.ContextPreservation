@@ -19,7 +19,11 @@
 
 namespace Ninject.Extensions.ContextPreservation
 {
+    using System;
+
     using Ninject.Activation;
+    using Ninject.Parameters;
+    using Ninject.Planning.Bindings;
     using Ninject.Syntax;
 
     /// <summary>
@@ -45,10 +49,47 @@ namespace Ninject.Extensions.ContextPreservation
         /// </summary>
         /// <typeparam name="T">The binding to resolve.</typeparam>
         /// <param name="context">The context.</param>
+        /// <param name="parameters">The parameters to pass to the request.</param>
         /// <returns>The resolved instance</returns>
-        public static T ContextPreservingGet<T>(this IContext context)
+        public static T ContextPreservingGet<T>(this IContext context, params IParameter[] parameters)
         {
-            return new ContextPreservingResolutionRoot(context, context.Request.Target).Get<T>();
+            return context.GetContextPreservingResolutionRoot().Get<T>(parameters);
+        }
+
+        /// <summary>
+        /// Resolves a binding using a <see cref="ContextPreservingResolutionRoot"/>.
+        /// </summary>
+        /// <typeparam name="T">The binding to resolve.</typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="name">The name of the binding.</param>
+        /// <param name="parameters">The parameters to pass to the request.</param>
+        /// <returns>The resolved instance</returns>
+        public static T ContextPreservingGet<T>(this IContext context, string name, params IParameter[] parameters)
+        {
+            return context.GetContextPreservingResolutionRoot().Get<T>(name, parameters);
+        }
+
+        /// <summary>
+        /// Resolves a binding using a <see cref="ContextPreservingResolutionRoot"/>.
+        /// </summary>
+        /// <typeparam name="T">The binding to resolve.</typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="constraint">The constraint to apply to the binding.</param>
+        /// <param name="parameters">The parameters to pass to the request</param>
+        /// <returns>The resolved instance</returns>
+        public static T ContextPreservingGet<T>(this IContext context, Func<IBindingMetadata, bool> constraint, params IParameter[] parameters)
+        {
+            return context.GetContextPreservingResolutionRoot().Get<T>(constraint, parameters);
+        }
+
+        /// <summary>
+        /// Gets a <see cref="ContextPreservingResolutionRoot"/> for the given context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns>The newly created <see cref="ContextPreservingResolutionRoot"/></returns>
+        public static IResolutionRoot GetContextPreservingResolutionRoot(this IContext context)
+        {
+            return new ContextPreservingResolutionRoot(context, context.Request.Target);
         }
     }
 }
