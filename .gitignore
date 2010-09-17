@@ -4,3 +4,5 @@
 /src/Ninject.Extensions.ContextPreservation/obj*
 /_ReSharper.Ninject.Extensions.ContextPreservation*
 *.suo
+/lib/Ninject/*.zip
+/lib/Ninject/*/**
