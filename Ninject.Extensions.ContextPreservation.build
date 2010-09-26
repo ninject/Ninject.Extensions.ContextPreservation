@@ -33,6 +33,7 @@
 		<copy todir="${current.path.test}">
 			<fileset basedir="${path.tools.xunit}">
 				<include name="xunit.dll"/>
+				<include name="xunit.should.dll"/>
 			</fileset>
 		</copy>
 		<copy todir="${current.path.test}" if="${string::contains(build.platform, 'silverlight')}">
@@ -58,6 +59,7 @@
 				<include name="Moq.dll" if="${not (string::contains(build.platform, 'silverlight'))}"/>
 				<include name="Moq.Silverlight.dll" if="${string::contains(build.platform, 'silverlight')}"/>
 				<include name="xunit.dll"/>
+				<include name="xunit.should.dll"/>
 				<include name="${product.assembly}"/>
 				<include name="${path.lib}/Ninject/${build.platform}/Ninject.dll"/>
 			</references>

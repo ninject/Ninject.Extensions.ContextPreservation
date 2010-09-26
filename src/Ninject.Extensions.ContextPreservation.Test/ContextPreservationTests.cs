@@ -24,6 +24,7 @@ namespace Ninject.Extensions.ContextPreservation
     using Ninject.Parameters;
     using Ninject.Syntax;
     using Xunit;
+    using Xunit.Should;
 
     /// <summary>
     /// Tests the implementation of <see cref="ContextPreservation"/>.
@@ -77,7 +78,7 @@ namespace Ninject.Extensions.ContextPreservation
             var factory = this.kernel.Get<Factory>();
             var child = factory.CreateChild();
 
-            Assert.NotNull(child);
+            child.ShouldNotBeNull();
         }
 
         /// <summary>
@@ -93,8 +94,8 @@ namespace Ninject.Extensions.ContextPreservation
             var factory = this.kernel.Get<Factory>();
             var child = factory.CreateChildWithArgument(Name);
 
-            Assert.NotNull(child);
-            Assert.Equal(Name, child.Name);
+            child.ShouldNotBeNull();
+            child.Name.ShouldBe(Name);
         }
 
         /// <summary>
@@ -110,7 +111,7 @@ namespace Ninject.Extensions.ContextPreservation
             var factory = this.kernel.Get<Factory>();
             var child = factory.CreateChild();
 
-            Assert.NotNull(child);
+            child.ShouldNotBeNull();
         }
 
         /// <summary>
@@ -126,9 +127,9 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<Parent>();
 
-            Assert.NotNull(parent);
-            Assert.NotNull(parent.Child);
-            Assert.NotNull(parent.Child.GrandChild);
+            parent.ShouldNotBeNull();
+            parent.Child.ShouldNotBeNull();
+            parent.Child.GrandChild.ShouldNotBeNull();
         }
 
         /// <summary>
@@ -143,8 +144,8 @@ namespace Ninject.Extensions.ContextPreservation
 
             var child = this.kernel.Get<IChild>();
 
-            Assert.NotNull(child);
-            Assert.NotNull(child.GrandChild);
+            child.ShouldNotBeNull();
+            child.GrandChild.ShouldNotBeNull();
         }
 
         /// <summary>
@@ -160,7 +161,7 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<Parent>();
 
-            Assert.NotNull(parent.Child);
+            parent.Child.ShouldNotBeNull();
         }
 
         /// <summary>
@@ -180,8 +181,8 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<Parent>();
 
-            Assert.NotNull(parent.Child);
-            Assert.Equal("1", ((ChildWithArgument)parent.Child).Name);
+            parent.Child.ShouldNotBeNull();
+            ((ChildWithArgument)parent.Child).Name.ShouldBe("1");
         }
 
         /// <summary>
@@ -201,8 +202,8 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<Parent>();
 
-            Assert.NotNull(parent.Child);
-            Assert.Equal("2", ((ChildWithArgument)parent.Child).Name);
+            parent.Child.ShouldNotBeNull();
+            ((ChildWithArgument)parent.Child).Name.ShouldBe("2");
         }
 
 
@@ -222,9 +223,9 @@ namespace Ninject.Extensions.ContextPreservation
             this.kernel.Bind<ChildWithArgument>().ToSelf().WhenInjectedInto<Parent>();
             var parent = this.kernel.Get<Parent>();
 
-            Assert.NotNull(parent.Child);
-            Assert.Equal("3", ((ChildWithArgument)parent.Child).Name);
-            Assert.Equal("4", ((ChildWithArgument)parent.Child).SomeProperty);
+            parent.Child.ShouldNotBeNull();
+            ((ChildWithArgument)parent.Child).Name.ShouldBe("3");
+            ((ChildWithArgument)parent.Child).SomeProperty.ShouldBe("4");
         }
 
         /// <summary>
@@ -239,7 +240,7 @@ namespace Ninject.Extensions.ContextPreservation
             this.kernel.Bind<Child>().ToSelf().WhenInjectedInto<Parent>();
             var parent = this.kernel.Get<Parent>();
 
-            Assert.NotNull(parent.Child);
+            parent.Child.ShouldNotBeNull();
         }
 
         /// <summary>

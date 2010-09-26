@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
     "t")]
 [assembly: AssemblyCompanyAttribute("bbv Software Services AG")]
 [assembly: AssemblyCopyrightAttribute("Copyright © 2009-2010 bbv Software Services AG")]
-[assembly: AssemblyVersionAttribute("1.0.0.0")]
+[assembly: AssemblyVersionAttribute("2.1.0.11")]
 [assembly: ComVisibleAttribute(false)]
 [assembly: CLSCompliantAttribute(true)]
 
