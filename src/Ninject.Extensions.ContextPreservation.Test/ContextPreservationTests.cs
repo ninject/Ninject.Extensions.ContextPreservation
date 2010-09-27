@@ -23,23 +23,37 @@ namespace Ninject.Extensions.ContextPreservation
     using Ninject;
     using Ninject.Parameters;
     using Ninject.Syntax;
+#if SILVERLIGHT
+#if SILVERLIGHT_MSTEST
+        using MsTest.Should;
+        using Microsoft.VisualStudio.TestTools.UnitTesting;
+        using Fact = Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute;
+#else
+    using UnitDriven;
+    using UnitDriven.Should;
+    using Fact = UnitDriven.TestMethodAttribute;
+#endif
+#else
+    using Ninject.Tests.MSTestAttributes;
     using Xunit;
     using Xunit.Should;
+#endif
 
     /// <summary>
     /// Tests the implementation of <see cref="ContextPreservation"/>.
     /// </summary>
+    [TestClass]
     public class ContextPreservationTests : IDisposable
     {
         /// <summary>
         /// The kernel used in the tests.
         /// </summary>
-        private readonly IKernel kernel;
+        private IKernel kernel;
 
         /// <summary>
         /// Child interface used in the tests.
         /// </summary>
-        private interface IChild
+        public interface IChild
         {
             /// <summary>
             /// Gets the grand child.
@@ -53,7 +67,18 @@ namespace Ninject.Extensions.ContextPreservation
         /// </summary>
         public ContextPreservationTests()
         {
-            this.kernel = new StandardKernel(new NinjectSettings { LoadExtensions = false });
+            this.SetUp();
+        }
+
+        [TestInitialize]
+        public void SetUp()
+        {
+            this.kernel = new StandardKernel(new NinjectSettings
+            {
+#if !SILVERLIGHT
+                LoadExtensions = false
+#endif
+            });
             this.kernel.Load(new ContextPreservationModule());
         }
 
@@ -246,7 +271,7 @@ namespace Ninject.Extensions.ContextPreservation
         /// <summary>
         /// Test parent class.
         /// </summary>
-        private class Parent
+        public class Parent
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="Parent"/> class.
@@ -267,7 +292,7 @@ namespace Ninject.Extensions.ContextPreservation
         /// <summary>
         /// Factory used in the tests.
         /// </summary>
-        private class Factory
+        public class Factory
         {
             /// <summary>
             /// The resolution root.
@@ -306,7 +331,7 @@ namespace Ninject.Extensions.ContextPreservation
         /// <summary>
         /// A child class used in the tests.
         /// </summary>
-        private class Child : IChild
+        public class Child : IChild
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="Child"/> class.
@@ -327,7 +352,7 @@ namespace Ninject.Extensions.ContextPreservation
         /// <summary>
         /// A child that has an argument in the constructor.
         /// </summary>
-        private class ChildWithArgument : Child
+        public class ChildWithArgument : Child
         {
             /// <summary>
             /// Initializes a new instance of the <see cref="ChildWithArgument"/> class.
@@ -356,7 +381,7 @@ namespace Ninject.Extensions.ContextPreservation
         /// <summary>
         /// A grand child class.
         /// </summary>
-        private class GrandChild
+        public class GrandChild
         {
         }
     }

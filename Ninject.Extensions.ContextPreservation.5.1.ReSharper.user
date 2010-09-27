@@ -1,0 +1,98 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="child" priority="5" />
+      <Item value="parent" priority="7" />
+      <Item value="TestClass" priority="0" />
+      <Item value="public" priority="0" />
+      <Item value="void" priority="0" />
+      <Item value="this" priority="0" />
+      <Item value="TestInitialize" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Ninject.Extensions.ContextPreservation.ContextPreservationTests+ChildWithArgument">
+      <Item value="ShouldNotBeNull`0" priority="0" />
+      <Item value="Name" priority="0" />
+      <Item value="SomeProperty" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.String">
+      <Item value="ShouldBe`1" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Ninject.Extensions.ContextPreservation.ContextPreservationTests+Child">
+      <Item value="ShouldNotBeNull`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Ninject.Extensions.ContextPreservation.ContextPreservationTests+Parent">
+      <Item value="ShouldNotBeNull`0" priority="0" />
+      <Item value="Child" priority="6" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Ninject.Extensions.ContextPreservation.ContextPreservationTests+IChild">
+      <Item value="ShouldNotBeNull`0" priority="2" />
+      <Item value="GrandChild" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Ninject.Extensions.ContextPreservation.ContextPreservationTests+GrandChild">
+      <Item value="ShouldNotBeNull`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Ninject.Extensions.ContextPreservation.ContextPreservationTests">
+      <Item value="SetUp`0" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:ContextPreservationTests.cs/l:..?Ninject.Extensions.ContextPreservation.Test?ContextPreservationTests.cs" caret="1668" fromTop="14" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:UnitDrivenShouldExtensions.cs" caret="0" fromTop="0" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:MsTestShouldExtensions.cs" caret="0" fromTop="0" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:AssertWithThrows.cs" caret="0" fromTop="0" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/d:Properties/f:AppManifest.xml" caret="0" fromTop="0" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:App.xaml.cs" caret="537" fromTop="0" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="1102" fromTop="12" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="2931" fromTop="16" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="3474" fromTop="22" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="4004" fromTop="20" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="4708" fromTop="23" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="5315" fromTop="21" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="5950" fromTop="22" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="6940" fromTop="19" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="7913" fromTop="15" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="8974" fromTop="20" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="9645" fromTop="20" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:ContextPreservationTests.cs/l:..?Ninject.Extensions.ContextPreservation.Test?ContextPreservationTests.cs" caret="1102" fromTop="18" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:ContextPreservationTests.cs/l:..?Ninject.Extensions.ContextPreservation.Test?ContextPreservationTests.cs" caret="1539" fromTop="32" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:ContextPreservationTests.cs/l:..?Ninject.Extensions.ContextPreservation.Test?ContextPreservationTests.cs" caret="1668" fromTop="15" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="10871" fromTop="4" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="12258" fromTop="13" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="12963" fromTop="16" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="13991" fromTop="18" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="1969" fromTop="8" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="10245" fromTop="6" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="2735" fromTop="27" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="1840" fromTop="15" />
+      <File id="19F47434-A5EF-4C4F-B22B-90FF00B08AE5/f:ContextPreservationTests.cs" caret="2457" fromTop="16" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:App.xaml.cs" caret="1169" fromTop="21" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:App.xaml.cs" caret="70" fromTop="1" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:App.xaml.cs" caret="182" fromTop="5" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:App.xaml.cs" caret="993" fromTop="32" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:App.xaml.cs" caret="558" fromTop="17" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:App.xaml.cs" caret="284" fromTop="10" />
+      <File id="DF12F187-EB98-4E34-97CF-8F734FE9810B/f:App.xaml.cs" caret="2560" fromTop="16" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+</Configuration>

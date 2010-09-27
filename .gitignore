@@ -1,8 +1,11 @@
 /build*
 /dist*
 /src/Ninject.Extensions.ContextPreservation.Test/obj*
+/src/Ninject.Extensions.ContextPreservation.SilverlightTests/obj*
+/src/Ninject.Extensions.ContextPreservation.SilverlightTests/Bin*
 /src/Ninject.Extensions.ContextPreservation/obj*
 /_ReSharper.Ninject.Extensions.ContextPreservation*
 *.suo
 /lib/Ninject/*.zip
 /lib/Ninject/*/**
+/src/Ninject.Extensions.ContextPreservation.SilverlightTests/Ninject.Extensions.ContextPreservation.SilverlightTests.csproj.user
