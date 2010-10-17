@@ -1,5 +1,5 @@
 @echo off
-set nantfile=Ninject.Extensions.ContextPreservation.build
+set nantfile=Ninject.build
 set nantexe=tools\nant\nant.exe
 set buildlog=Ninject.Extensions.ContextPreservation-Nant-Build.log
 set unittestlog=Ninject.Extensions.ContextPreservation-Nant-unit-tests.log
