@@ -47,9 +47,9 @@ namespace Ninject.Extensions.ContextPreservation
         /// <summary>
         /// Binds an interface to binding.
         /// </summary>
-        /// <typeparam name="TInterface">The type of the interface.</typeparam>
-        /// <typeparam name="TBinding">The type of the binding the interface is bound to.</typeparam>
         /// <param name="bindingRoot">The binding root.</param>
+        /// <param name="interfaceType">Type of the interface.</param>
+        /// <param name="bindingType">Type of the binding.</param>
         /// <returns>The binding syntax.</returns>
         public static IBindingWhenInNamedWithOrOnSyntax<object> BindInterfaceToBinding(this IBindingRoot bindingRoot, Type interfaceType, Type bindingType)
         {
@@ -145,6 +145,12 @@ namespace Ninject.Extensions.ContextPreservation
             return new ContextPreservingResolutionRoot(context, context.Request.Target);
         }
 
+        /// <summary>
+        /// Gets the type of the service. Converting open generics to the matching type.
+        /// </summary>
+        /// <param name="service">The service.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>The type of the service.</returns>
         private static Type GetServiceType(Type service, IContext context)
         {
             if (service.IsGenericType)
