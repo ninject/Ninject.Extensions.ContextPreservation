@@ -45,6 +45,18 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
+        /// Binds an interface to binding.
+        /// </summary>
+        /// <typeparam name="TInterface">The type of the interface.</typeparam>
+        /// <typeparam name="TBinding">The type of the binding the interface is bound to.</typeparam>
+        /// <param name="bindingRoot">The binding root.</param>
+        /// <returns>The binding syntax.</returns>
+        public static IBindingWhenInNamedWithOrOnSyntax<object> BindInterfaceToBinding(this IBindingRoot bindingRoot, Type interfaceType, Type bindingType)
+        {
+            return bindingRoot.Bind(interfaceType).ToMethod(context => context.ContextPreservingGet(bindingType));
+        }
+        
+        /// <summary>
         /// Resolves a binding using a <see cref="ContextPreservingResolutionRoot"/>.
         /// </summary>
         /// <typeparam name="T">The binding to resolve.</typeparam>
@@ -83,6 +95,47 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
+        /// Resolves a binding using a <see cref="ContextPreservingResolutionRoot"/>.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="service">The service to resolve.</param>
+        /// <param name="parameters">The parameters to pass to the request.</param>
+        /// <returns>The resolved instance</returns>
+        public static object ContextPreservingGet(this IContext context, Type service, params IParameter[] parameters)
+        {
+            service = GetServiceType(service, context);
+            return context.GetContextPreservingResolutionRoot().Get(service, parameters);
+        }
+
+        /// <summary>
+        /// Resolves a binding using a <see cref="ContextPreservingResolutionRoot"/>.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="service">The service to resolve.</param>
+        /// <param name="name">The name of the binding.</param>
+        /// <param name="parameters">The parameters to pass to the request.</param>
+        /// <returns>The resolved instance</returns>
+        public static object ContextPreservingGet(this IContext context, Type service, string name, params IParameter[] parameters)
+        {
+            service = GetServiceType(service, context);
+            return context.GetContextPreservingResolutionRoot().Get(service, name, parameters);
+        }
+
+        /// <summary>
+        /// Resolves a binding using a <see cref="ContextPreservingResolutionRoot"/>.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="service">The service to resolve.</param>
+        /// <param name="constraint">The constraint to apply to the binding.</param>
+        /// <param name="parameters">The parameters to pass to the request</param>
+        /// <returns>The resolved instance</returns>
+        public static object ContextPreservingGet(this IContext context, Type service, Func<IBindingMetadata, bool> constraint, params IParameter[] parameters)
+        {
+            service = GetServiceType(service, context);
+            return context.GetContextPreservingResolutionRoot().Get(service, constraint, parameters);
+        }
+
+        /// <summary>
         /// Gets a <see cref="ContextPreservingResolutionRoot"/> for the given context.
         /// </summary>
         /// <param name="context">The context.</param>
@@ -91,5 +144,15 @@ namespace Ninject.Extensions.ContextPreservation
         {
             return new ContextPreservingResolutionRoot(context, context.Request.Target);
         }
+
+        private static Type GetServiceType(Type service, IContext context)
+        {
+            if (service.IsGenericType)
+            {
+                service = service.MakeGenericType(context.GenericArguments);
+            }
+            return service;
+        }
+
     }
 }

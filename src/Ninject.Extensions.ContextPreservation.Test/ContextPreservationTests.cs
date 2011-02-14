@@ -63,6 +63,15 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
+        /// Child interface used in the tests.
+        /// </summary>
+        /// <typeparam name="T">The type of the open generic.</typeparam>
+        public interface IOpenGeneric<T>
+        {
+            T Do();
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ContextPreservationTests"/> class.
         /// </summary>
         public ContextPreservationTests()
@@ -158,6 +167,23 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
+        /// BindInterfaceToBinding returns an instance of the type bound to the given binding when the interface is requested.
+        /// </summary>
+        [Fact]
+        public void BindInterfaceToBindingWhenOpenGeneric()
+        {
+            this.kernel.Bind<ParentWithOpenGeneric>().ToSelf();
+            this.kernel.Bind(typeof(OpenGeneric<>)).To(typeof(OpenGeneric<>));
+            this.kernel.BindInterfaceToBinding(typeof(IOpenGeneric<>), typeof(OpenGeneric<>));
+
+            var parent = this.kernel.Get<ParentWithOpenGeneric>();
+
+            parent.ShouldNotBeNull();
+            parent.OpenGeneric.ShouldNotBeNull();
+            parent.OpenGeneric.Do().ShouldBe(0);
+        }
+        
+        /// <summary>
         /// <see cref="BindInterfaceToBinding"/> returns an instance of the type bound to the given binding when the interface is requested.
         /// The interface can be requested directly.
         /// </summary>
@@ -173,6 +199,21 @@ namespace Ninject.Extensions.ContextPreservation
             child.GrandChild.ShouldNotBeNull();
         }
 
+        /// <summary>
+        /// BindInterfaceToBinding returns an instance of the type bound to the given binding when the interface is requested.
+        /// </summary>
+        [Fact]
+        public void BindInterfaceToBindingWhenOpenGenericAndDirectlyResolved()
+        {
+            this.kernel.Bind(typeof(OpenGeneric<>)).To(typeof(OpenGeneric<>));
+            this.kernel.BindInterfaceToBinding(typeof(IOpenGeneric<>), typeof(OpenGeneric<>));
+
+            var openGeneric = this.kernel.Get<IOpenGeneric<int>>();
+
+            openGeneric.ShouldNotBeNull();
+            openGeneric.Do().ShouldBe(0);
+        }
+        
         /// <summary>
         /// The ContextPreservingGet extension method uses a 
         /// <see cref="ContextPreservingResolutionRoot"/> to get the requested instance.
@@ -355,7 +396,7 @@ namespace Ninject.Extensions.ContextPreservation
             /// Initializes a new instance of the <see cref="Parent"/> class.
             /// </summary>
             /// <param name="child">The child.</param>
-            public Parent(IChild child)
+            public Parent(IChild child) 
             {
                 this.Child = child;
             }
@@ -367,6 +408,22 @@ namespace Ninject.Extensions.ContextPreservation
             public IChild Child { get; private set; }
         }
 
+        /// <summary>
+        /// Test parent class with an open generic.
+        /// </summary>
+        public class ParentWithOpenGeneric
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Parent"/> class.
+            /// </summary>
+            public ParentWithOpenGeneric(IOpenGeneric<int> openGeneric)
+            {
+                this.OpenGeneric = openGeneric;
+            }
+
+            public IOpenGeneric<int> OpenGeneric { get; private set; }
+        }
+        
         /// <summary>
         /// Factory used in the tests.
         /// </summary>
@@ -461,6 +518,14 @@ namespace Ninject.Extensions.ContextPreservation
         /// </summary>
         public class GrandChild
         {
+        }
+
+        public class OpenGeneric<T> : IOpenGeneric<T>
+        {
+            public T Do()
+            {
+                return default(T);
+            }
         }
     }
 }
