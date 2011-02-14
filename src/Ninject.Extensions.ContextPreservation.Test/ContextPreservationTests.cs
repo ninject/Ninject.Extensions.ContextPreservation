@@ -97,7 +97,7 @@ namespace Ninject.Extensions.ContextPreservation
         public void ContextPreserved()
         {
             this.kernel.Bind<Factory>().ToSelf();
-            this.kernel.Bind<Child>().ToSelf().WhenInjectedInto<Factory>();
+            this.kernel.Bind<IChild>().To<Child>().WhenInjectedInto<Factory>();
             this.kernel.Bind<GrandChild>().ToSelf();
 
             var factory = this.kernel.Get<Factory>();
@@ -130,7 +130,7 @@ namespace Ninject.Extensions.ContextPreservation
         public void TargetIsResolutionRootOwner()
         {
             this.kernel.Bind<Factory>().ToSelf().Named("Parent");
-            this.kernel.Bind<Child>().ToSelf().WhenParentNamed("Parent");
+            this.kernel.Bind<IChild>().To<Child>().WhenParentNamed("Parent");
             this.kernel.Bind<GrandChild>().ToSelf();
 
             var factory = this.kernel.Get<Factory>();
@@ -269,6 +269,84 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
+        /// Targets the is resolution root owner.
+        /// </summary>
+        [Fact]
+        public void ContextualConditions()
+        {
+            this.kernel.Bind<IChild>().To<Child>()
+                .When(request => request.ParentRequest.ParentRequest.Service == typeof(ParentWithFactoryA));
+            this.kernel.Bind<IChild>().To<ChildWithArgument>()
+                .When(request => request.ParentRequest.ParentRequest.Service == typeof(ParentWithFactoryB))
+                .WithConstructorArgument("name", "sdf");
+
+            var parentA = this.kernel.Get<ParentWithFactoryA>();
+            parentA.Initialize();
+            var parentB = this.kernel.Get<ParentWithFactoryB>();
+            parentB.Initialize();
+
+
+            parentA.Child.ShouldBeInstanceOf<Child>();
+            parentB.Child.ShouldBeInstanceOf<ChildWithArgument>();
+        }
+        
+        /// <summary>
+        /// Test parent class.
+        /// </summary>
+        public class ParentWithFactoryA
+        {
+            private Factory factory;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Parent"/> class.
+            /// </summary>
+            /// <param name="child">The child.</param>
+            public ParentWithFactoryA(Factory factory)
+            {
+                this.factory = factory;
+            }
+
+            public void Initialize()
+            {
+                this.Child = this.factory.CreateChild();
+            }
+
+            /// <summary>
+            /// Gets the child.
+            /// </summary>
+            /// <value>The child.</value>
+            public IChild Child { get; private set; }
+        }
+
+        /// <summary>
+        /// Test parent class.
+        /// </summary>
+        public class ParentWithFactoryB
+        {
+            private Factory factory;
+
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Parent"/> class.
+            /// </summary>
+            /// <param name="child">The child.</param>
+            public ParentWithFactoryB(Factory factory)
+            {
+                this.factory = factory;
+            }
+
+            public void Initialize()
+            {
+                this.Child = this.factory.CreateChild();
+            }
+
+            /// <summary>
+            /// Gets the child.
+            /// </summary>
+            /// <value>The child.</value>
+            public IChild Child { get; private set; }
+        }
+        
+        /// <summary>
         /// Test parent class.
         /// </summary>
         public class Parent
@@ -312,9 +390,9 @@ namespace Ninject.Extensions.ContextPreservation
             /// Creates a new child.
             /// </summary>
             /// <returns>The newly created child.</returns>
-            public Child CreateChild()
+            public IChild CreateChild()
             {
-                return this.resolutionRoot.Get<Child>();
+                return this.resolutionRoot.Get<IChild>();
             }
 
             /// <summary>
