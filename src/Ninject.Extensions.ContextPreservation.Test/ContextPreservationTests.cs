@@ -1,6 +1,6 @@
 //-------------------------------------------------------------------------------
 // <copyright file="ContextPreservationTests.cs" company="bbv Software Services AG">
-//   Copyright (c) 2010 bbv Software Services AG
+//   Copyright (c) 2010-2011 bbv Software Services AG
 //   Author: Remo Gloor remo.gloor@bbv.ch
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,8 +21,8 @@ namespace Ninject.Extensions.ContextPreservation
 {
     using System;
     using Ninject;
+    using Ninject.Extensions.ContextPreservation.Fakes;
     using Ninject.Parameters;
-    using Ninject.Syntax;
 #if SILVERLIGHT
 #if SILVERLIGHT_MSTEST
         using MsTest.Should;
@@ -49,27 +49,6 @@ namespace Ninject.Extensions.ContextPreservation
         /// The kernel used in the tests.
         /// </summary>
         private IKernel kernel;
-
-        /// <summary>
-        /// Child interface used in the tests.
-        /// </summary>
-        public interface IChild
-        {
-            /// <summary>
-            /// Gets the grand child.
-            /// </summary>
-            /// <value>The grand child.</value>
-            GrandChild GrandChild { get; }
-        }
-
-        /// <summary>
-        /// Child interface used in the tests.
-        /// </summary>
-        /// <typeparam name="T">The type of the open generic.</typeparam>
-        public interface IOpenGeneric<T>
-        {
-            T Do();
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextPreservationTests"/> class.
@@ -105,12 +84,12 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void ContextPreserved()
         {
-            this.kernel.Bind<Factory>().ToSelf();
-            this.kernel.Bind<IChild>().To<Child>().WhenInjectedInto<Factory>();
-            this.kernel.Bind<GrandChild>().ToSelf();
+            this.kernel.Bind<WeaponFactory>().ToSelf();
+            this.kernel.Bind<IWeapon>().To<Sword>().WhenInjectedInto<WeaponFactory>();
+            this.kernel.Bind<IJewel>().To<RedJewel>();
 
-            var factory = this.kernel.Get<Factory>();
-            var child = factory.CreateChild();
+            var factory = this.kernel.Get<WeaponFactory>();
+            var child = factory.CreateWeapon();
 
             child.ShouldNotBeNull();
         }
@@ -122,11 +101,11 @@ namespace Ninject.Extensions.ContextPreservation
         public void ParametersArePassed()
         {
             const string Name = "TheName";
-            this.kernel.Bind<Factory>().ToSelf();
-            this.kernel.Bind<ChildWithArgument>().ToSelf();
+            this.kernel.Bind<WeaponFactory>().ToSelf();
+            this.kernel.Bind<INamedWeapon>().To<NamedDagger>();
 
-            var factory = this.kernel.Get<Factory>();
-            var child = factory.CreateChildWithArgument(Name);
+            var factory = this.kernel.Get<WeaponFactory>();
+            var child = factory.CreateNamedWeapon(Name);
 
             child.ShouldNotBeNull();
             child.Name.ShouldBe(Name);
@@ -138,12 +117,12 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void TargetIsResolutionRootOwner()
         {
-            this.kernel.Bind<Factory>().ToSelf().Named("Parent");
-            this.kernel.Bind<IChild>().To<Child>().WhenParentNamed("Parent");
-            this.kernel.Bind<GrandChild>().ToSelf();
+            this.kernel.Bind<WeaponFactory>().ToSelf().Named("Warrior");
+            this.kernel.Bind<IWeapon>().To<Sword>().WhenParentNamed("Warrior");
+            this.kernel.Bind<IJewel>().To<RedJewel>();
 
-            var factory = this.kernel.Get<Factory>();
-            var child = factory.CreateChild();
+            var factory = this.kernel.Get<WeaponFactory>();
+            var child = factory.CreateWeapon();
 
             child.ShouldNotBeNull();
         }
@@ -154,16 +133,16 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void BindInterfaceToBinding()
         {
-            this.kernel.Bind<Parent>().ToSelf();
-            this.kernel.Bind<Child>().ToSelf().WhenInjectedInto<Parent>();
-            this.kernel.BindInterfaceToBinding<IChild, Child>();
-            this.kernel.Bind<GrandChild>().ToSelf();
+            this.kernel.Bind<Warrior>().ToSelf();
+            this.kernel.Bind<Sword>().ToSelf().WhenInjectedInto<Warrior>();
+            this.kernel.BindInterfaceToBinding<IWeapon, Sword>();
+            this.kernel.Bind<IJewel>().To<RedJewel>();
 
-            var parent = this.kernel.Get<Parent>();
+            var parent = this.kernel.Get<Warrior>();
 
             parent.ShouldNotBeNull();
-            parent.Child.ShouldNotBeNull();
-            parent.Child.GrandChild.ShouldNotBeNull();
+            parent.Weapon.ShouldNotBeNull();
+            parent.Weapon.Jewel.ShouldNotBeNull();
         }
 
         /// <summary>
@@ -190,13 +169,14 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void BindInterfaceToBindingWhenDirectlyResolved()
         {
-            this.kernel.Bind<Child>().ToSelf();
-            this.kernel.BindInterfaceToBinding<IChild, Child>();
+            this.kernel.Bind<Sword>().ToSelf();
+            this.kernel.BindInterfaceToBinding<IWeapon, Sword>();
+            this.kernel.Bind<IJewel>().To<RedJewel>();
 
-            var child = this.kernel.Get<IChild>();
+            var child = this.kernel.Get<IWeapon>();
 
             child.ShouldNotBeNull();
-            child.GrandChild.ShouldNotBeNull();
+            child.Jewel.ShouldNotBeNull();
         }
 
         /// <summary>
@@ -221,13 +201,13 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void ContextPreservingGetExtensionMethodWithoutArguments()
         {
-            this.kernel.Bind<Parent>().ToSelf();
-            this.kernel.Bind<IChild>().ToMethod(ctx => ctx.ContextPreservingGet<Child>());
-            this.kernel.Bind<Child>().ToSelf().WhenInjectedInto<Parent>();
+            this.kernel.Bind<Warrior>().ToSelf();
+            this.kernel.Bind<IWeapon>().ToMethod(ctx => ctx.ContextPreservingGet<Dagger>());
+            this.kernel.Bind<Dagger>().ToSelf().WhenInjectedInto<Warrior>();
 
-            var parent = this.kernel.Get<Parent>();
+            var parent = this.kernel.Get<Warrior>();
 
-            parent.Child.ShouldNotBeNull();
+            parent.Weapon.ShouldNotBeNull();
         }
 
         /// <summary>
@@ -238,17 +218,17 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void ContextPreservingGetExtensionMethodWithName()
         {
-            this.kernel.Bind<Parent>().ToSelf();
-            this.kernel.Bind<IChild>().ToMethod(ctx => ctx.ContextPreservingGet<ChildWithArgument>("1"));
-            this.kernel.Bind<ChildWithArgument>().ToSelf()
-                       .WhenInjectedInto<Parent>().Named("1").WithConstructorArgument("name", "1");
-            this.kernel.Bind<ChildWithArgument>().ToSelf()
-                       .WhenInjectedInto<Parent>().Named("2").WithConstructorArgument("name", "2");
+            this.kernel.Bind<Warrior>().ToSelf();
+            this.kernel.Bind<IWeapon>().ToMethod(ctx => ctx.ContextPreservingGet<NamedDagger>("1"));
+            this.kernel.Bind<NamedDagger>().ToSelf()
+                       .WhenInjectedInto<Warrior>().Named("1").WithConstructorArgument("name", "1");
+            this.kernel.Bind<NamedDagger>().ToSelf()
+                       .WhenInjectedInto<Warrior>().Named("2").WithConstructorArgument("name", "2");
 
-            var parent = this.kernel.Get<Parent>();
+            var parent = this.kernel.Get<Warrior>();
 
-            parent.Child.ShouldNotBeNull();
-            ((ChildWithArgument)parent.Child).Name.ShouldBe("1");
+            parent.Weapon.ShouldNotBeNull();
+            ((INamedWeapon)parent.Weapon).Name.ShouldBe("1");
         }
 
         /// <summary>
@@ -259,17 +239,17 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void ContextPreservingGetExtensionMethodWithConstraint()
         {
-            this.kernel.Bind<Parent>().ToSelf();
-            this.kernel.Bind<IChild>().ToMethod(ctx => ctx.ContextPreservingGet<ChildWithArgument>(m => m.Has("2")));
-            this.kernel.Bind<ChildWithArgument>().ToSelf()
-                       .WhenInjectedInto<Parent>().WithMetadata("1", null).WithConstructorArgument("name", "1");
-            this.kernel.Bind<ChildWithArgument>().ToSelf()
-                       .WhenInjectedInto<Parent>().WithMetadata("2", null).WithConstructorArgument("name", "2");
+            this.kernel.Bind<Warrior>().ToSelf();
+            this.kernel.Bind<IWeapon>().ToMethod(ctx => ctx.ContextPreservingGet<NamedDagger>(m => m.Has("2")));
+            this.kernel.Bind<NamedDagger>().ToSelf()
+                       .WhenInjectedInto<Warrior>().WithMetadata("1", null).WithConstructorArgument("name", "1");
+            this.kernel.Bind<NamedDagger>().ToSelf()
+                       .WhenInjectedInto<Warrior>().WithMetadata("2", null).WithConstructorArgument("name", "2");
 
-            var parent = this.kernel.Get<Parent>();
+            var parent = this.kernel.Get<Warrior>();
 
-            parent.Child.ShouldNotBeNull();
-            ((ChildWithArgument)parent.Child).Name.ShouldBe("2");
+            parent.Weapon.ShouldNotBeNull();
+            ((INamedWeapon)parent.Weapon).Name.ShouldBe("2");
         }
 
 
@@ -281,17 +261,19 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void ContextPreservingGetExtensionMethodWithParameters()
         {
-            this.kernel.Bind<Parent>().ToSelf();
-            this.kernel.Bind<IChild>().ToMethod(
-                ctx => ctx.ContextPreservingGet<ChildWithArgument>(
+            this.kernel.Bind<Warrior>().ToSelf();
+            this.kernel.Bind<IWeapon>().ToMethod(
+                ctx => ctx.ContextPreservingGet<NamedSword>(
                             new ConstructorArgument("name", "3"), 
-                            new PropertyValue("SomeProperty", "4")));
-            this.kernel.Bind<ChildWithArgument>().ToSelf().WhenInjectedInto<Parent>();
-            var parent = this.kernel.Get<Parent>();
+                            new PropertyValue("Inscription", "4")));
+            this.kernel.Bind<NamedSword>().ToSelf().WhenInjectedInto<Warrior>();
+            this.kernel.Bind<IJewel>().To<RedJewel>();
 
-            parent.Child.ShouldNotBeNull();
-            ((ChildWithArgument)parent.Child).Name.ShouldBe("3");
-            ((ChildWithArgument)parent.Child).SomeProperty.ShouldBe("4");
+            var parent = this.kernel.Get<Warrior>();
+
+            parent.Weapon.ShouldNotBeNull();
+            ((NamedSword)parent.Weapon).Name.ShouldBe("3");
+            ((NamedSword)parent.Weapon).Inscription.ShouldBe("4");
         }
 
         /// <summary>
@@ -301,12 +283,12 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void GetContextPreservingResolutionRootExtensionMethod()
         {
-            this.kernel.Bind<Parent>().ToSelf();
-            this.kernel.Bind<IChild>().ToMethod(ctx => ctx.GetContextPreservingResolutionRoot().Get<Child>());
-            this.kernel.Bind<Child>().ToSelf().WhenInjectedInto<Parent>();
-            var parent = this.kernel.Get<Parent>();
+            this.kernel.Bind<Warrior>().ToSelf();
+            this.kernel.Bind<IWeapon>().ToMethod(ctx => ctx.GetContextPreservingResolutionRoot().Get<Dagger>());
+            this.kernel.Bind<Dagger>().ToSelf().WhenInjectedInto<Warrior>();
+            var parent = this.kernel.Get<Warrior>();
 
-            parent.Child.ShouldNotBeNull();
+            parent.Weapon.ShouldNotBeNull();
         }
 
         /// <summary>
@@ -315,217 +297,20 @@ namespace Ninject.Extensions.ContextPreservation
         [Fact]
         public void ContextualConditions()
         {
-            this.kernel.Bind<IChild>().To<Child>()
-                .When(request => request.ParentRequest.ParentRequest.Service == typeof(ParentWithFactoryA));
-            this.kernel.Bind<IChild>().To<ChildWithArgument>()
-                .When(request => request.ParentRequest.ParentRequest.Service == typeof(ParentWithFactoryB))
-                .WithConstructorArgument("name", "sdf");
+            this.kernel.Bind<IWeapon>().To<Sword>()
+                .When(request => request.ParentRequest.ParentRequest.Service == typeof(Town));
+            this.kernel.Bind<IWeapon>().To<NamedSword>()
+                .When(request => request.ParentRequest.ParentRequest.Service == typeof(Village))
+                .WithConstructorArgument("name", "Excalibur");
+            this.kernel.Bind<IWeaponFactory>().To<WeaponFactory>();
+            this.kernel.Bind<IJewel>().To<RedJewel>();
 
-            var parentA = this.kernel.Get<ParentWithFactoryA>();
-            parentA.Initialize();
-            var parentB = this.kernel.Get<ParentWithFactoryB>();
-            parentB.Initialize();
+            var town = this.kernel.Get<Town>();
+            var village = this.kernel.Get<Village>();
 
-
-            parentA.Child.ShouldBeInstanceOf<Child>();
-            parentB.Child.ShouldBeInstanceOf<ChildWithArgument>();
+            town.WeaponFactory.CreateWeapon().ShouldBeInstanceOf<Sword>();
+            village.WeaponFactory.CreateWeapon().ShouldBeInstanceOf<NamedSword>();
         }
         
-        /// <summary>
-        /// Test parent class.
-        /// </summary>
-        public class ParentWithFactoryA
-        {
-            private Factory factory;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Parent"/> class.
-            /// </summary>
-            /// <param name="child">The child.</param>
-            public ParentWithFactoryA(Factory factory)
-            {
-                this.factory = factory;
-            }
-
-            public void Initialize()
-            {
-                this.Child = this.factory.CreateChild();
-            }
-
-            /// <summary>
-            /// Gets the child.
-            /// </summary>
-            /// <value>The child.</value>
-            public IChild Child { get; private set; }
-        }
-
-        /// <summary>
-        /// Test parent class.
-        /// </summary>
-        public class ParentWithFactoryB
-        {
-            private Factory factory;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Parent"/> class.
-            /// </summary>
-            /// <param name="child">The child.</param>
-            public ParentWithFactoryB(Factory factory)
-            {
-                this.factory = factory;
-            }
-
-            public void Initialize()
-            {
-                this.Child = this.factory.CreateChild();
-            }
-
-            /// <summary>
-            /// Gets the child.
-            /// </summary>
-            /// <value>The child.</value>
-            public IChild Child { get; private set; }
-        }
-        
-        /// <summary>
-        /// Test parent class.
-        /// </summary>
-        public class Parent
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Parent"/> class.
-            /// </summary>
-            /// <param name="child">The child.</param>
-            public Parent(IChild child) 
-            {
-                this.Child = child;
-            }
-
-            /// <summary>
-            /// Gets the child.
-            /// </summary>
-            /// <value>The child.</value>
-            public IChild Child { get; private set; }
-        }
-
-        /// <summary>
-        /// Test parent class with an open generic.
-        /// </summary>
-        public class ParentWithOpenGeneric
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Parent"/> class.
-            /// </summary>
-            public ParentWithOpenGeneric(IOpenGeneric<int> openGeneric)
-            {
-                this.OpenGeneric = openGeneric;
-            }
-
-            public IOpenGeneric<int> OpenGeneric { get; private set; }
-        }
-        
-        /// <summary>
-        /// Factory used in the tests.
-        /// </summary>
-        public class Factory
-        {
-            /// <summary>
-            /// The resolution root.
-            /// </summary>
-            private readonly IResolutionRoot resolutionRoot;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Factory"/> class.
-            /// </summary>
-            /// <param name="resolutionRoot">The resolution root.</param>
-            public Factory(IResolutionRoot resolutionRoot)
-            {
-                this.resolutionRoot = resolutionRoot;
-            }
-
-            /// <summary>
-            /// Creates a new child.
-            /// </summary>
-            /// <returns>The newly created child.</returns>
-            public IChild CreateChild()
-            {
-                return this.resolutionRoot.Get<IChild>();
-            }
-
-            /// <summary>
-            /// Creates a child with an argument.
-            /// </summary>
-            /// <param name="name">The name argument.</param>
-            /// <returns>The newly created child.</returns>
-            public ChildWithArgument CreateChildWithArgument(string name)
-            {
-                return this.resolutionRoot.Get<ChildWithArgument>(new ConstructorArgument("name", name));
-            }
-        }
-
-        /// <summary>
-        /// A child class used in the tests.
-        /// </summary>
-        public class Child : IChild
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="Child"/> class.
-            /// </summary>
-            /// <param name="grandChild">The grand child.</param>
-            public Child(GrandChild grandChild)
-            {
-                this.GrandChild = grandChild;
-            }
-
-            /// <summary>
-            /// Gets the grand child.
-            /// </summary>
-            /// <value>The grand child.</value>
-            public GrandChild GrandChild { get; private set; }
-        }
-
-        /// <summary>
-        /// A child that has an argument in the constructor.
-        /// </summary>
-        public class ChildWithArgument : Child
-        {
-            /// <summary>
-            /// Initializes a new instance of the <see cref="ChildWithArgument"/> class.
-            /// </summary>
-            /// <param name="name">The name of the child.</param>
-            /// <param name="grandChild">The grand child.</param>
-            public ChildWithArgument(string name, GrandChild grandChild)
-                : base(grandChild)
-            {
-                this.Name = name;
-            }
-
-            /// <summary>
-            /// Gets the name.
-            /// </summary>
-            /// <value>The name of the child.</value>
-            public string Name { get; private set; }
-
-            /// <summary>
-            /// Gets or sets the test property value.
-            /// </summary>
-            /// <value>The test property value.</value>
-            public string SomeProperty { get; set; }
-        }
-
-        /// <summary>
-        /// A grand child class.
-        /// </summary>
-        public class GrandChild
-        {
-        }
-
-        public class OpenGeneric<T> : IOpenGeneric<T>
-        {
-            public T Do()
-            {
-                return default(T);
-            }
-        }
     }
 }

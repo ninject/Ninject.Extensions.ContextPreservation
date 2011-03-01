@@ -71,9 +71,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fakes\BlueJewel.cs" />
+    <Compile Include="Fakes\NamedDagger.cs" />
+    <Compile Include="Fakes\Dagger.cs" />
+    <Compile Include="Fakes\IJewel.cs" />
+    <Compile Include="Fakes\INamedWeapon.cs" />
+    <Compile Include="Fakes\IWeaponFactory.cs" />
+    <Compile Include="Fakes\Sword.cs" />
+    <Compile Include="Fakes\NamedSword.cs" />
     <Compile Include="ContextPreservationTests.cs" />
+    <Compile Include="Fakes\Town.cs" />
+    <Compile Include="Fakes\Village.cs" />
+    <Compile Include="Fakes\WeaponFactory.cs" />
+    <Compile Include="Fakes\RedJewel.cs" />
+    <Compile Include="Fakes\IWeapon.cs" />
+    <Compile Include="Fakes\IOpenGeneric.cs" />
     <Compile Include="MSTestAttributes\TestClassAttribute.cs" />
     <Compile Include="MSTestAttributes\TestInitialize.cs" />
+    <Compile Include="Fakes\OpenGeneric.cs" />
+    <Compile Include="Fakes\Warrior.cs" />
+    <Compile Include="Fakes\ParentWithOpenGeneric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
