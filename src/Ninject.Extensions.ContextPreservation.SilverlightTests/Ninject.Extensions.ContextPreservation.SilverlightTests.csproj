@@ -97,6 +97,57 @@
     <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\ContextPreservationTests.cs">
       <Link>ContextPreservationTests.cs</Link>
     </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\BlueJewel.cs">
+      <Link>Fakes\BlueJewel.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\Dagger.cs">
+      <Link>Fakes\Dagger.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\IJewel.cs">
+      <Link>Fakes\IJewel.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\INamedWeapon.cs">
+      <Link>Fakes\INamedWeapon.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\IOpenGeneric.cs">
+      <Link>Fakes\IOpenGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\IWeapon.cs">
+      <Link>Fakes\IWeapon.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\IWeaponFactory.cs">
+      <Link>Fakes\IWeaponFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\NamedDagger.cs">
+      <Link>Fakes\NamedDagger.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\NamedSword.cs">
+      <Link>Fakes\NamedSword.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\OpenGeneric.cs">
+      <Link>Fakes\OpenGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\ParentWithOpenGeneric.cs">
+      <Link>Fakes\ParentWithOpenGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\RedJewel.cs">
+      <Link>Fakes\RedJewel.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\Sword.cs">
+      <Link>Fakes\Sword.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\Town.cs">
+      <Link>Fakes\Town.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\Village.cs">
+      <Link>Fakes\Village.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\Warrior.cs">
+      <Link>Fakes\Warrior.cs</Link>
+    </Compile>
+    <Compile Include="..\Ninject.Extensions.ContextPreservation.Test\Fakes\WeaponFactory.cs">
+      <Link>Fakes\WeaponFactory.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -114,6 +165,7 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <Import Condition="$(SilverlightVersion)=='v3.0'" Project="$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\SilverlightToolkit\Tools\v3.0)Microsoft.Silverlight.Toolkit.Build.targets" />
   <Import Condition="$(SilverlightVersion)=='v4.0'" Project="$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\SilverlightToolkit\Tools\v4.0)Microsoft.Silverlight.Toolkit.Build.targets" />

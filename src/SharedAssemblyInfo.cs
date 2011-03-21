@@ -15,8 +15,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProductAttribute("Ninject.Extensions.ContextPreservation: Context preservation extension for Ninjec" +
     "t")]
 [assembly: AssemblyCompanyAttribute("bbv Software Services AG")]
-[assembly: AssemblyCopyrightAttribute("Copyright © 2009-2010 bbv Software Services AG and contributors")]
-[assembly: AssemblyVersionAttribute("2.1.0.16")]
+[assembly: AssemblyCopyrightAttribute("Copyright © 2009-2011 bbv Software Services AG and contributors")]
+[assembly: AssemblyVersionAttribute("2.3.0.0")]
+[assembly: AssemblyFileVersionAttribute("2.3.0.0")]
 [assembly: ComVisibleAttribute(false)]
 [assembly: CLSCompliantAttribute(true)]
 

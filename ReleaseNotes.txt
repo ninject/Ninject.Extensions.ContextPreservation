@@ -1,0 +1,3 @@
+Version 2.4.0.0
+---------------
+Change: Removed NoWeb builds because they are not needed anymore
