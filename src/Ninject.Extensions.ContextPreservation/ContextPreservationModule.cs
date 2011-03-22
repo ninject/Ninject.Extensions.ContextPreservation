@@ -35,7 +35,7 @@ namespace Ninject.Extensions.ContextPreservation
         public override void Load()
         {
             this.Kernel.Components.Add<IActivationStrategy, ContextPreservingResolutionRootActivationStrategy>();
-            this.Bind<IResolutionRoot>().To<ContextPreservingResolutionRoot>();
+            this.Rebind<IResolutionRoot>().To<ContextPreservingResolutionRoot>();
         }
     }
 }
