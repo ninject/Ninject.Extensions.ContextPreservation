@@ -23,43 +23,23 @@ namespace Ninject.Extensions.ContextPreservation
     using Ninject;
     using Ninject.Extensions.ContextPreservation.Fakes;
     using Ninject.Parameters;
-#if SILVERLIGHT
-#if SILVERLIGHT_MSTEST
-        using MsTest.Should;
-        using Microsoft.VisualStudio.TestTools.UnitTesting;
-        using Fact = Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute;
-#else
-    using UnitDriven;
-    using UnitDriven.Should;
-    using Fact = UnitDriven.TestMethodAttribute;
-#endif
-#else
-    using Ninject.Tests.MSTestAttributes;
     using Xunit;
     using Xunit.Should;
-#endif
 
     /// <summary>
     /// Tests the implementation of <see cref="ContextPreservation"/>.
     /// </summary>
-    [TestClass]
     public class ContextPreservationTests : IDisposable
     {
         /// <summary>
         /// The kernel used in the tests.
         /// </summary>
-        private IKernel kernel;
+        private readonly IKernel kernel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextPreservationTests"/> class.
         /// </summary>
         public ContextPreservationTests()
-        {
-            this.SetUp();
-        }
-
-        [TestInitialize]
-        public void SetUp()
         {
             this.kernel = new StandardKernel(new NinjectSettings
             {
