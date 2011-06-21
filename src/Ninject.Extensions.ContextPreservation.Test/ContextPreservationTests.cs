@@ -20,12 +20,14 @@
 namespace Ninject.Extensions.ContextPreservation
 {
     using System;
+
+    using FluentAssertions;
+
     using Ninject;
     using Ninject.Extensions.ContextPreservation.Fakes;
     using Ninject.Parameters;
     using Xunit;
-    using Xunit.Should;
-
+    
     /// <summary>
     /// Tests the implementation of <see cref="ContextPreservation"/>.
     /// </summary>
@@ -71,7 +73,7 @@ namespace Ninject.Extensions.ContextPreservation
             var factory = this.kernel.Get<WeaponFactory>();
             var child = factory.CreateWeapon();
 
-            child.ShouldNotBeNull();
+            child.Should().NotBeNull();
         }
 
         /// <summary>
@@ -87,8 +89,8 @@ namespace Ninject.Extensions.ContextPreservation
             var factory = this.kernel.Get<WeaponFactory>();
             var child = factory.CreateNamedWeapon(Name);
 
-            child.ShouldNotBeNull();
-            child.Name.ShouldBe(Name);
+            child.Should().NotBeNull();
+            child.Name.Should().Be(Name);
         }
 
         /// <summary>
@@ -104,7 +106,7 @@ namespace Ninject.Extensions.ContextPreservation
             var factory = this.kernel.Get<WeaponFactory>();
             var child = factory.CreateWeapon();
 
-            child.ShouldNotBeNull();
+            child.Should().NotBeNull();
         }
 
         /// <summary>
@@ -120,9 +122,9 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<Warrior>();
 
-            parent.ShouldNotBeNull();
-            parent.Weapon.ShouldNotBeNull();
-            parent.Weapon.Jewel.ShouldNotBeNull();
+            parent.Should().NotBeNull();
+            parent.Weapon.Should().NotBeNull();
+            parent.Weapon.Jewel.Should().NotBeNull();
         }
 
         /// <summary>
@@ -137,9 +139,9 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<ParentWithOpenGeneric>();
 
-            parent.ShouldNotBeNull();
-            parent.OpenGeneric.ShouldNotBeNull();
-            parent.OpenGeneric.Do().ShouldBe(0);
+            parent.Should().NotBeNull();
+            parent.OpenGeneric.Should().NotBeNull();
+            parent.OpenGeneric.Do().Should().Be(0);
         }
         
         /// <summary>
@@ -155,8 +157,8 @@ namespace Ninject.Extensions.ContextPreservation
 
             var child = this.kernel.Get<IWeapon>();
 
-            child.ShouldNotBeNull();
-            child.Jewel.ShouldNotBeNull();
+            child.Should().NotBeNull();
+            child.Jewel.Should().NotBeNull();
         }
 
         /// <summary>
@@ -170,8 +172,8 @@ namespace Ninject.Extensions.ContextPreservation
 
             var openGeneric = this.kernel.Get<IOpenGeneric<int>>();
 
-            openGeneric.ShouldNotBeNull();
-            openGeneric.Do().ShouldBe(0);
+            openGeneric.Should().NotBeNull();
+            openGeneric.Do().Should().Be(0);
         }
         
         /// <summary>
@@ -187,7 +189,7 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<Warrior>();
 
-            parent.Weapon.ShouldNotBeNull();
+            parent.Weapon.Should().NotBeNull();
         }
 
         /// <summary>
@@ -207,8 +209,8 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<Warrior>();
 
-            parent.Weapon.ShouldNotBeNull();
-            ((INamedWeapon)parent.Weapon).Name.ShouldBe("1");
+            parent.Weapon.Should().NotBeNull();
+            ((INamedWeapon)parent.Weapon).Name.Should().Be("1");
         }
 
         /// <summary>
@@ -228,10 +230,9 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<Warrior>();
 
-            parent.Weapon.ShouldNotBeNull();
-            ((INamedWeapon)parent.Weapon).Name.ShouldBe("2");
+            parent.Weapon.Should().NotBeNull();
+            ((INamedWeapon)parent.Weapon).Name.Should().Be("2");
         }
-
 
         /// <summary>
         /// The ContextPreservingGet extension method uses a 
@@ -251,9 +252,9 @@ namespace Ninject.Extensions.ContextPreservation
 
             var parent = this.kernel.Get<Warrior>();
 
-            parent.Weapon.ShouldNotBeNull();
-            ((NamedSword)parent.Weapon).Name.ShouldBe("3");
-            ((NamedSword)parent.Weapon).Inscription.ShouldBe("4");
+            parent.Weapon.Should().NotBeNull();
+            ((NamedSword)parent.Weapon).Name.Should().Be("3");
+            ((NamedSword)parent.Weapon).Inscription.Should().Be("4");
         }
 
         /// <summary>
@@ -268,7 +269,7 @@ namespace Ninject.Extensions.ContextPreservation
             this.kernel.Bind<Dagger>().ToSelf().WhenInjectedInto<Warrior>();
             var parent = this.kernel.Get<Warrior>();
 
-            parent.Weapon.ShouldNotBeNull();
+            parent.Weapon.Should().NotBeNull();
         }
 
         /// <summary>
@@ -288,9 +289,8 @@ namespace Ninject.Extensions.ContextPreservation
             var town = this.kernel.Get<Town>();
             var village = this.kernel.Get<Village>();
 
-            town.WeaponFactory.CreateWeapon().ShouldBeInstanceOf<Sword>();
-            village.WeaponFactory.CreateWeapon().ShouldBeInstanceOf<NamedSword>();
-        }
-        
+            town.WeaponFactory.CreateWeapon().Should().BeOfType<Sword>();
+            village.WeaponFactory.CreateWeapon().Should().BeOfType<NamedSword>();
+        }     
     }
 }
