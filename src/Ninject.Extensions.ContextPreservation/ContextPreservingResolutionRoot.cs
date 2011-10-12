@@ -88,6 +88,19 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
+        /// Determines whether the specified request can be resolved.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="ignoreImplicitBindings">if set to <c>true</c> implicit bindings are ignored.</param>
+        /// <returns>
+        ///     <c>True</c> if the request can be resolved; otherwise, <c>false</c>.
+        /// </returns>
+        public bool CanResolve(IRequest request, bool ignoreImplicitBindings)
+        {
+            return this.context.Kernel.CanResolve(request, ignoreImplicitBindings);
+        }
+
+        /// <summary>
         /// Resolves the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
