@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------
-// <copyright file="ContextPreservationTests.cs" company="bbv Software Services AG">
+// <copyright file="Dagger.cs" company="bbv Software Services AG">
 //   Copyright (c) 2010-2011 bbv Software Services AG
 //   Author: Remo Gloor remo.gloor@bbv.ch
 //
@@ -25,7 +25,7 @@ namespace Ninject.Extensions.ContextPreservation.Fakes
     public class Dagger : IWeapon
     {
         /// <summary>
-        /// Gets the jewel that decorates the weapon.
+        /// Gets or sets the jewel that decorates the weapon.
         /// </summary>
         /// <value>The jewel that decorates the weapon.</value>
         public IJewel Jewel

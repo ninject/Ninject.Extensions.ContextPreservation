@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------------------------
-// <copyright file="ContextPreservationTests.cs" company="bbv Software Services AG">
+// <copyright file="OpenGeneric.cs" company="bbv Software Services AG">
 //   Copyright (c) 2010-2011 bbv Software Services AG
 //   Author: Remo Gloor remo.gloor@bbv.ch
 //
@@ -22,6 +22,7 @@ namespace Ninject.Extensions.ContextPreservation.Fakes
     /// <summary>
     /// A test implementation of <see cref="IOpenGeneric{T}"/> used in the unit tests
     /// </summary>
+    /// <typeparam name="T">The generic type argument.</typeparam>
     public class OpenGeneric<T> : IOpenGeneric<T>
     {
         /// <summary>

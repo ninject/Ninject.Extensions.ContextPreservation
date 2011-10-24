@@ -128,7 +128,7 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
-        /// BindInterfaceToBinding returns an instance of the type bound to the given binding when the interface is requested.
+        /// <see cref="BindInterfaceToBinding"/> returns an instance of the type bound to the given binding when the interface is requested.
         /// </summary>
         [Fact]
         public void BindInterfaceToBindingWhenOpenGeneric()
@@ -162,7 +162,7 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
-        /// BindInterfaceToBinding returns an instance of the type bound to the given binding when the interface is requested.
+        /// <see cref="BindInterfaceToBinding"/> returns an instance of the type bound to the given binding when the interface is requested.
         /// </summary>
         [Fact]
         public void BindInterfaceToBindingWhenOpenGenericAndDirectlyResolved()

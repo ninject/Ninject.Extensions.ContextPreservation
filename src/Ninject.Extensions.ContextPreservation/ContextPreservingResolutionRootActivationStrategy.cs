@@ -19,6 +19,7 @@
 
 namespace Ninject.Extensions.ContextPreservation
 {
+    using System;
     using Ninject.Activation;
     using Ninject.Activation.Strategies;
 
@@ -34,9 +35,24 @@ namespace Ninject.Extensions.ContextPreservation
         /// <param name="reference">The reference.</param>
         public override void Activate(IContext context, InstanceReference reference)
         {
-            reference.IfInstanceIs<ContextPreservingResolutionRoot>(
-                namedScopeResolutionRoot =>
-                namedScopeResolutionRoot.DefineParentContext(context.Request.ParentContext, context.Request.Target));
+            reference.IfInstanceIs<ContextPreservingResolutionRoot>(namedScopeResolutionRoot => DefineParentContext(context, namedScopeResolutionRoot));
+        }
+
+        /// <summary>
+        /// Defines the parent context for the specified resolution root.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="namedScopeResolutionRoot">The named scope resolution root.</param>
+        private static void DefineParentContext(IContext context, ContextPreservingResolutionRoot namedScopeResolutionRoot)
+        {
+            if (context.Request.Target.Member.DeclaringType.FullName == "Ninject.Extensions.Factory.FactoryInterceptor")
+            {
+                namedScopeResolutionRoot.DefineParentContext(context.Request.ParentRequest.ParentRequest.ParentContext, context.Request.ParentRequest.ParentRequest.Target);
+            }
+            else
+            {
+                namedScopeResolutionRoot.DefineParentContext(context.Request.ParentContext, context.Request.Target);
+            }
         }
     }
 }

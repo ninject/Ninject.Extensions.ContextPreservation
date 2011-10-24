@@ -8,5 +8,7 @@
 *.suo
 /lib/Ninject/*.zip
 /lib/Ninject/*/**
+/lib/Ninject.Extensions.Factory/*.zip
+/lib/Ninject.Extensions.Factory/*/**
 /src/Ninject.Extensions.ContextPreservation.SilverlightTests/Ninject.Extensions.ContextPreservation.SilverlightTests.csproj.user
 /Ninject.Extensions.ContextPreservation.5.1.ReSharper.user

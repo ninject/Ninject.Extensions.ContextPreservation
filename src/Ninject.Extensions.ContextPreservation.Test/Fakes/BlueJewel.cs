@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------
-// <copyright file="ContextPreservationTests.cs" company="bbv Software Services AG">
+// <copyright file="BlueJewel.cs" company="bbv Software Services AG">
 //   Copyright (c) 2010-2011 bbv Software Services AG
 //   Author: Remo Gloor remo.gloor@bbv.ch
 //

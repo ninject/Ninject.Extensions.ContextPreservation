@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------------------------
-// <copyright file="ContextPreservationTests.cs" company="bbv Software Services AG">
+// <copyright file="NamedDagger.cs" company="bbv Software Services AG">
 //   Copyright (c) 2010-2011 bbv Software Services AG
 //   Author: Remo Gloor remo.gloor@bbv.ch
 //
@@ -25,9 +25,11 @@ namespace Ninject.Extensions.ContextPreservation.Fakes
     public class NamedDagger : Dagger, INamedWeapon
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NamedSword"/> class.
+        /// Initializes a new instance of the <see cref="NamedDagger"/> class. 
         /// </summary>
-        /// <param name="name">The name of the weapon.</param>
+        /// <param name="name">
+        /// The name of the weapon.
+        /// </param>
         public NamedDagger(string name)
         {
             this.Name = name;

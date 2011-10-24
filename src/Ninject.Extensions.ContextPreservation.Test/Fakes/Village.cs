@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------
-// <copyright file="ContextPreservationTests.cs" company="bbv Software Services AG">
+// <copyright file="Village.cs" company="bbv Software Services AG">
 //   Copyright (c) 2010-2011 bbv Software Services AG
 //   Author: Remo Gloor remo.gloor@bbv.ch
 //
@@ -38,6 +38,14 @@ namespace Ninject.Extensions.ContextPreservation.Fakes
         /// </summary>
         /// <value>The weapon factory.</value>
         public IWeaponFactory WeaponFactory { get; set; }
-    }
 
+        /// <summary>
+        /// Gets the weapon.
+        /// </summary>
+        /// <returns>The weapon.</returns>
+        public IWeapon GetWeapon()
+        {
+            return this.WeaponFactory.CreateWeapon();
+        }
+    }
 }

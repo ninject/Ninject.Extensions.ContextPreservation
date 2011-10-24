@@ -157,8 +157,8 @@ namespace Ninject.Extensions.ContextPreservation
             {
                 service = service.MakeGenericType(context.GenericArguments);
             }
+
             return service;
         }
-
     }
 }

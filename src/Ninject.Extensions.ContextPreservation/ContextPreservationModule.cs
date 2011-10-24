@@ -19,6 +19,8 @@
 
 namespace Ninject.Extensions.ContextPreservation
 {
+    using System;
+    using Ninject.Activation;
     using Ninject.Activation.Strategies;
     using Ninject.Modules;
     using Ninject.Syntax;
@@ -36,6 +38,26 @@ namespace Ninject.Extensions.ContextPreservation
         {
             this.Kernel.Components.Add<IActivationStrategy, ContextPreservingResolutionRootActivationStrategy>();
             this.Rebind<IResolutionRoot>().To<ContextPreservingResolutionRoot>();
+            this.Rebind<Func<IContext, IResolutionRoot>>().ToMethod(ctx => GetContextPreservingResolutionRoot);
+        }
+
+        /// <summary>
+        /// Gets the context preserving resolution root for the given context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <returns>The context preserving resolution root for the given context.</returns>
+        private static IResolutionRoot GetContextPreservingResolutionRoot(IContext context)
+        {
+#if !NET_35 && !NETCF && !SILVERLIGHT_20 && !SILVERLIGHT_30 && !WINDOWS_PHONE
+            if (context.Request.ParentRequest != null &&
+                context.Request.ParentRequest.Service.IsGenericType &&
+                context.Request.ParentRequest.Service.GetGenericTypeDefinition() == typeof(Lazy<>))
+            {
+                context = context.Request.ParentContext;
+            }
+#endif
+
+            return context.GetContextPreservingResolutionRoot();
         }
     }
 }

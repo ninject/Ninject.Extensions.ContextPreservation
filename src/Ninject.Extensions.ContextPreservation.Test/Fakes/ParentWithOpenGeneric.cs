@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------------------------
-// <copyright file="ContextPreservationTests.cs" company="bbv Software Services AG">
+// <copyright file="ParentWithOpenGeneric.cs" company="bbv Software Services AG">
 //   Copyright (c) 2010-2011 bbv Software Services AG
 //   Author: Remo Gloor remo.gloor@bbv.ch
 //
@@ -27,6 +27,7 @@ namespace Ninject.Extensions.ContextPreservation.Fakes
         /// <summary>
         /// Initializes a new instance of the <see cref="Warrior"/> class.
         /// </summary>
+        /// <param name="openGeneric">The open generic.</param>
         public ParentWithOpenGeneric(IOpenGeneric<int> openGeneric)
         {
             this.OpenGeneric = openGeneric;
