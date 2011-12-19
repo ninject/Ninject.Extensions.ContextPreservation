@@ -32,31 +32,6 @@ namespace Ninject.Extensions.ContextPreservation
     public static class ContextPreservationExtensionMethods
     {
         /// <summary>
-        /// Binds an interface to binding.
-        /// </summary>
-        /// <typeparam name="TInterface">The type of the interface.</typeparam>
-        /// <typeparam name="TBinding">The type of the binding the interface is bound to.</typeparam>
-        /// <param name="bindingRoot">The binding root.</param>
-        /// <returns>The binding syntax.</returns>
-        public static IBindingWhenInNamedWithOrOnSyntax<TInterface> BindInterfaceToBinding<TInterface, TBinding>(this IBindingRoot bindingRoot)
-            where TBinding : TInterface
-        {
-            return bindingRoot.Bind<TInterface>().ToMethod(context => context.ContextPreservingGet<TBinding>());
-        }
-
-        /// <summary>
-        /// Binds an interface to binding.
-        /// </summary>
-        /// <param name="bindingRoot">The binding root.</param>
-        /// <param name="interfaceType">Type of the interface.</param>
-        /// <param name="bindingType">Type of the binding.</param>
-        /// <returns>The binding syntax.</returns>
-        public static IBindingWhenInNamedWithOrOnSyntax<object> BindInterfaceToBinding(this IBindingRoot bindingRoot, Type interfaceType, Type bindingType)
-        {
-            return bindingRoot.Bind(interfaceType).ToMethod(context => context.ContextPreservingGet(bindingType));
-        }
-        
-        /// <summary>
         /// Resolves a binding using a <see cref="ContextPreservingResolutionRoot"/>.
         /// </summary>
         /// <typeparam name="T">The binding to resolve.</typeparam>

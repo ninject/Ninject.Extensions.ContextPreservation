@@ -1,3 +1,4 @@
 Version 2.4.0.0
 ---------------
 Change: Removed NoWeb builds because they are not needed anymore
+Change: Removed BindInterfaceToBinding use the new core functionality to bind multiple interfaces instead. (Bind<IA, IB>())
