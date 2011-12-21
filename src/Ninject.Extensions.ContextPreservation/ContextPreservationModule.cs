@@ -38,7 +38,7 @@ namespace Ninject.Extensions.ContextPreservation
         {
             this.Kernel.Components.Add<IActivationStrategy, ContextPreservingResolutionRootActivationStrategy>();
             this.Rebind<IResolutionRoot>().To<ContextPreservingResolutionRoot>();
-            this.Rebind<Func<IContext, IResolutionRoot>>().ToMethod<Func<IContext, IResolutionRoot>>(ctx => GetContextPreservingResolutionRoot);
+            this.Rebind<Func<IContext, IResolutionRoot>>().ToMethod(ctx => GetContextPreservingResolutionRoot);
         }
 
         /// <summary>
