@@ -4,8 +4,12 @@
 /src/Ninject.Extensions.ContextPreservation.SilverlightTests/obj*
 /src/Ninject.Extensions.ContextPreservation.SilverlightTests/Bin*
 /src/Ninject.Extensions.ContextPreservation/obj*
-/_ReSharper.Ninject.Extensions.ContextPreservation*
+_ReSharper.Ninject.Extensions.ContextPreservation with Silverlight and WP7 Unittesting
+_ReSharper.Ninject.Extensions.ContextPreservation
 *.suo
+*.dotCover
+*.user
+obj
 /lib/Ninject/*.zip
 /lib/Ninject/*/**
 /lib/Ninject.Extensions.Factory/*.zip
