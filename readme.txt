@@ -4,11 +4,11 @@ Imagine the following scenario:
 - Factory F has a method CreateFoo
 - When class a calls CreateFoo the request does not know where it actually lives.
 
-This extension preserves the context over such factories. That means the parent of the new request is the factory request
+This extension preserves the context over such factories. That means the parent of the new request is the factory request.
 
 
-When using this modules some things have to be done differently:
-1. Bindings for classes that have multiple interfaces are defines like this:
+When using these modules some things have to be done differently:
+1. Bindings for classes that have multiple interfaces are defined like this:
    kernel.Bind<MyClass>().ToSelf()
    kernel.BindInterfaceToBinding<IA, MyClass>();
    kernel.BindInterfaceToBinding<IB, MyClass>();
@@ -20,5 +20,5 @@ When using this modules some things have to be done differently:
 
    bindingRoot.Bind<TInterface>().ToMethod(context => return new ContextPreservingResolutionRoot(context, context.Request.Target).Get<MyClass>());
 
-   But NEVER use the kernel form the context directly.
+   But NEVER use the kernel from the context directly.
 
