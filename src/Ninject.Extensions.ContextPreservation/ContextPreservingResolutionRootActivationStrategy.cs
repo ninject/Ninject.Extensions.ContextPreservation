@@ -47,7 +47,7 @@ namespace Ninject.Extensions.ContextPreservation
         {
             if (context.Request.Target.Member.DeclaringType.FullName == "Ninject.Extensions.Factory.FactoryInterceptor")
             {
-                namedScopeResolutionRoot.DefineParentContext(context.Request.ParentRequest.ParentRequest.ParentContext, context.Request.ParentRequest.ParentRequest.Target);
+                namedScopeResolutionRoot.DefineParentContext(context.Request.ParentRequest.ParentContext, context.Request.ParentRequest.ParentRequest.Target);
             }
             else
             {

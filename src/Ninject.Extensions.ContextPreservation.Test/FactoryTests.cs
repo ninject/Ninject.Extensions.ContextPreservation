@@ -69,6 +69,20 @@ namespace Ninject.Extensions.ContextPreservation
 
             weapon.Should().BeOfType<Dagger>();
         }
+
+        /// <summary>
+        /// Whens the using factory directly_ must not throw.
+        /// </summary>
+        [Fact]
+        public void FactoryCanBeResolvedDirectly()
+        {
+            this.kernel.Bind<IWeapon>().To<Dagger>();
+            this.kernel.Bind<IWeaponFactory>().ToFactory();
+
+            var factory = this.kernel.Get<IWeaponFactory>();
+
+            factory.CreateWeapon().Should().BeOfType<Dagger>();
+        }
 #endif
 
         /// <summary>
