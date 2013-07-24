@@ -126,6 +126,16 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
+        /// Deactivates and releases the specified instance if it is currently managed by Ninject.
+        /// </summary>
+        /// <param name="instance">The instance to release.</param>
+        /// <returns><see langword="True"/> if the instance was found and released; otherwise <see langword="false"/>.</returns>
+        public bool Release(object instance)
+        {
+            return this.context.Kernel.Release(instance);
+        }
+
+        /// <summary>
         /// Defines the parent context.
         /// </summary>
         /// <param name="context">The parent context.</param>
