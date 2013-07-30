@@ -146,6 +146,42 @@ namespace Ninject.Extensions.ContextPreservation
             ((INamedWeapon)parent.Weapon).Name.Should().Be("1");
         }
 
+        [Fact]
+        public void ContextPreservingGetExtensionMethodForClosedGenericTypesDefinedByGenericArgument()
+        {
+            this.kernel.Bind<ParentWithOpenGeneric>().ToSelf();
+            this.kernel.Bind<IOpenGeneric<int>>().ToMethod(ctx => ctx.ContextPreservingGet<OpenGeneric<int>>())
+                .WhenInjectedInto<ParentWithOpenGeneric>();
+
+            var parent = this.kernel.Get<ParentWithOpenGeneric>();
+
+            parent.OpenGeneric.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void ContextPreservingGetExtensionMethodForClosedGenericTypesDefinedByType()
+        {
+            this.kernel.Bind<ParentWithOpenGeneric>().ToSelf();
+            this.kernel.Bind(typeof(IOpenGeneric<int>)).ToMethod(ctx => ctx.ContextPreservingGet(typeof(OpenGeneric<int>)))
+                .WhenInjectedInto<ParentWithOpenGeneric>();
+
+            var parent = this.kernel.Get<ParentWithOpenGeneric>();
+
+            parent.OpenGeneric.Should().NotBeNull();
+        }
+        
+        [Fact]
+        public void ContextPreservingGetExtensionMethodForOpenGenericTypes()
+        {
+            this.kernel.Bind<ParentWithOpenGeneric>().ToSelf();
+            this.kernel.Bind(typeof(IOpenGeneric<>)).ToMethod(ctx => ctx.ContextPreservingGet(typeof(OpenGeneric<>)))
+                .WhenInjectedInto<ParentWithOpenGeneric>();
+
+            var parent = this.kernel.Get<ParentWithOpenGeneric>();
+
+            parent.OpenGeneric.Should().NotBeNull();
+        }
+
         /// <summary>
         /// The ContextPreservingGet extension method uses a 
         /// <see cref="ContextPreservingResolutionRoot"/> to get the requested instance.

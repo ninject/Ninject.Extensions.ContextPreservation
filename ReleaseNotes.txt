@@ -1,3 +1,7 @@
+Version 3.0.2
+-------------
+Bugfix: Fixed ContextPresevingGet for closed generic types (#3)
+
 Version 3.0.1
 -------------
 Bugfix: Fixed incompatibility with the factory extension, factories can now be resolved directly.

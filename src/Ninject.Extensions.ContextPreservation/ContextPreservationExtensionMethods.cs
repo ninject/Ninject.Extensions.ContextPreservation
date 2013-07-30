@@ -128,7 +128,7 @@ namespace Ninject.Extensions.ContextPreservation
         /// <returns>The type of the service.</returns>
         private static Type GetServiceType(Type service, IContext context)
         {
-            if (service.IsGenericType)
+            if (service.IsGenericTypeDefinition)
             {
                 service = service.MakeGenericType(context.GenericArguments);
             }
