@@ -1,4 +1,4 @@
-Version 3.0.2
+Version 3.2.0
 -------------
 Bugfix: Fixed ContextPresevingGet for closed generic types (#3)
 
