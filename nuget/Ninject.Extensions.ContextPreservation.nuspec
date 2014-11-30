@@ -5,15 +5,16 @@
     <version></version>
     <authors>Ninject Project Contributors</authors>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-	<licenseUrl>https://github.com/ninject/ninject.extensions.contextpreservation/raw/master/LICENSE.txt</licenseUrl>
+    <licenseUrl>https://github.com/ninject/ninject.extensions.contextpreservation/raw/master/LICENSE.txt</licenseUrl>
     <description>Ninject extension that preserves the context over factories (the parent of the new request is the factory request)</description>
+    <releaseNotes>https://github.com/ninject/Ninject.Extensions.ContextPreservation/blob/master/ReleaseNotes.md</releaseNotes>
     <summary></summary>
     <language>en-US</language>
-	<tags>Ninject ioc di</tags>
-	<iconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</iconUrl>
-	<projectUrl>http://www.ninject.org</projectUrl>
+    <tags>Ninject ioc di</tags>
+    <iconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</iconUrl>
+    <projectUrl>http://www.ninject.org</projectUrl>
     <dependencies>
       <dependency id="Ninject" version="" />
-    </dependencies> 
+    </dependencies>
   </metadata>
 </package>
