@@ -1,6 +1,6 @@
 Version 3.2.0
 -------------
-Bugfix: Fixed ContextPresevingGet for closed generic types (#3)
+Bugfix: Fixed ContextPresevingGet for closed generic types [(#3)](https://github.com/ninject/Ninject.Extensions.ContextPreservation/issues/3)
 
 Version 3.0.1
 -------------
