@@ -1,4 +1,9 @@
-# Ninject.Extensions.ContextPreservation [![NuGet Version](http://img.shields.io/nuget/v/Ninject.Extensions.ContextPreservation.svg?style=flat)](https://www.nuget.org/packages/Ninject.Extensions.ContextPreservation/) [![NuGet Downloads](http://img.shields.io/nuget/dt/Ninject.Extensions.ContextPreservation.svg?style=flat)](https://www.nuget.org/packages/Ninject.Extensions.ContextPreservation/)
+# Ninject.Extensions.ContextPreservation 
+
+[![Build status](https://ci.appveyor.com/api/projects/status/f5llrcwnu9k7sfpv?svg=true)](https://ci.appveyor.com/project/Ninject/ninject-extensions-contextpreservation)
+[![codecov](https://codecov.io/gh/ninject/Ninject.Extensions.ContextPreservation/branch/master/graph/badge.svg)](https://codecov.io/gh/ninject/Ninject.Extensions.ContextPreservation)
+[![NuGet Version](http://img.shields.io/nuget/v/Ninject.Extensions.ContextPreservation.svg?style=flat)](https://www.nuget.org/packages/Ninject.Extensions.ContextPreservation/) 
+[![NuGet Downloads](http://img.shields.io/nuget/dt/Ninject.Extensions.ContextPreservation.svg?style=flat)](https://www.nuget.org/packages/Ninject.Extensions.ContextPreservation/)
 
 This Ninject extension enables one to preserve contextual information pertaining to earlier requests that indirectly led to a given request in order to fulfil the following key objectives:
 - Enable more detailed tracing of Resolution failures
@@ -8,6 +13,3 @@ This Ninject extension enables one to preserve contextual information pertaining
 ## Documentation
 
  https://github.com/ninject/Ninject.Extensions.ContextPreservation/wiki
-
-## CI build status
-[![Build Status](https://teamcity.bbv.ch/app/rest/builds/buildType:(id:bt20)/statusIcon)](http://teamcity.bbv.ch/viewType.html?buildTypeId=bt20&guest=1)

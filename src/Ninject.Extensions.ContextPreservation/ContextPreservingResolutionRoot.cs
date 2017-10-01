@@ -1,21 +1,9 @@
-//-------------------------------------------------------------------------------
-// <copyright file="ContextPreservingResolutionRoot.cs" company="bbv Software Services AG">
-//   Copyright (c) 2010 bbv Software Services AG
-//   Author: Remo Gloor remo.gloor@bbv.ch
-//
-//   Licensed under the Apache License, Version 2.0 (the "License");
-//   you may not use this file except in compliance with the License.
-//   You may obtain a copy of the License at
-//
-//       http://www.apache.org/licenses/LICENSE-2.0
-//
-//   Unless required by applicable law or agreed to in writing, software
-//   distributed under the License is distributed on an "AS IS" BASIS,
-//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//   See the License for the specific language governing permissions and
-//   limitations under the License.
+// -------------------------------------------------------------------------------------------------
+// <copyright file="ContextPreservingResolutionRoot.cs" company="Ninject Project Contributors">
+//   Copyright (c) 2010-2017 Ninject Project Contributors
+//   Licensed under the Apache License, Version 2.0.
 // </copyright>
-//-------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------
 
 namespace Ninject.Extensions.ContextPreservation
 {
@@ -126,6 +114,16 @@ namespace Ninject.Extensions.ContextPreservation
         }
 
         /// <summary>
+        /// Injects the specified existing instance, without managing its lifecycle.
+        /// </summary>
+        /// <param name="instance">The instance to inject.</param>
+        /// <param name="parameters">The parameters to pass to the request.</param>
+        public void Inject(object instance, params IParameter[] parameters)
+        {
+            this.context.Kernel.Inject(instance, parameters);
+        }
+
+        /// <summary>
         /// Deactivates and releases the specified instance if it is currently managed by Ninject.
         /// </summary>
         /// <param name="instance">The instance to release.</param>
@@ -201,7 +199,7 @@ namespace Ninject.Extensions.ContextPreservation
             /// <value>The parent request.</value>
             public IRequest ParentRequest
             {
-                get 
+                get
                 {
                     return this.parentContext.Request;
                 }
@@ -302,7 +300,7 @@ namespace Ninject.Extensions.ContextPreservation
             }
 
             /// <summary>
-            /// Gets or sets value indicating whether the request should force to return a unique value even if the request is optional.
+            /// Gets or sets a value indicating whether the request should force to return a unique value even if the request is optional.
             /// If this value is set true the request will throw an ActivationException if there are multiple satisfying bingings rather
             /// than returning null for the request is optional. For none optional requests this parameter does not change anything.
             /// </summary>
