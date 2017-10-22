@@ -3,18 +3,18 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <Version>0.0.0</Version>
-    <Authors>Remo Gloor (remo.gloor@gmail.com);Ninject Contributors</Authors>
+    <Authors>Ninject Project Contributors</Authors>
     <Company>Ninject Project Contributors</Company>
     <Product>Context preservation extension for Ninject</Product>
     <Description>Ninject extension that preserves the context over factories (the parent of the new request is the factory request)</Description>
-    <Copyright>2009-2017 Ninject Project Contributors</Copyright>
+    <Copyright>2010-2017 Ninject Project Contributors</Copyright>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyOriginatorKeyFile>..\Ninject.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageId>Ninject.Extensions.ContextPreservation</PackageId>
     <PackageVersion>0.0.0</PackageVersion>
-    <PackageTags>Ninject;ioc;di;context preservation</PackageTags>
+    <PackageTags>Ninject;ioc;di;context;preservation</PackageTags>
     <PackageProjectUrl>http://www.ninject.org/</PackageProjectUrl>
     <PackageReleaseNotes>https://github.com/ninject/Ninject.Extensions.ContextPreservation/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <PackageIconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</PackageIconUrl>
@@ -36,17 +36,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="4.1.1" />
-    <PackageReference Include="Ninject" Version="3.3.1" />
-    <PackageReference Include="Ninject.Extensions.Factory" Version="3.3.0" />
+    <PackageReference Include="Ninject.Extensions.Factory" Version="3.3.2" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004">
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
 </Project>
