@@ -23,6 +23,7 @@ namespace Ninject.Extensions.ContextPreservation
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using Ninject.Activation;
     using Ninject.Components;
     using Ninject.Parameters;

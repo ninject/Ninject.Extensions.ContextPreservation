@@ -21,6 +21,7 @@
 namespace Ninject.Extensions.ContextPreservation
 {
     using System;
+
     using Ninject.Activation;
     using Ninject.Activation.Strategies;
     using Ninject.Modules;
